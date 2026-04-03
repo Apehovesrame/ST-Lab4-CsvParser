@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System;
 
-using Lab.Implementations.GenCode2;
+using Lab.Implementations.GenCode1;
 
 namespace Tests
 {
