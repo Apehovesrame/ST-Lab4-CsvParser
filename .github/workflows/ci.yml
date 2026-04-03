@@ -5,11 +5,11 @@ on:
     branches: [ "main", "ai-version-1", "ai-version-2", "ai-version-3" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch: # Ручной запуск
+  workflow_dispatch: # ГђГіГ·Г­Г®Г© Г§Г ГЇГіГ±ГЄ
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
