@@ -20,8 +20,10 @@ jobs:
       with:
         dotnet-version: 9.0.305
 
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
     - name: Restore dependencies
-      run: dotnet restore
+      run: nuget restore STlab1.sln
 
     - name: Build
       run: dotnet build --no-restore
