@@ -33,7 +33,10 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 9.0.305
+        dotnet-version: 6.0.x
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
 
     # 5. Настраиваем классический NuGet для старого формата проектов
     - name: Setup NuGet
