@@ -1,0 +1,10 @@
+# Конфигурация генератора тестов
+target_language: csharp
+test_framework: nunit
+
+# Откуда берем спецификацию
+spec_path: spec/csv_parser.yaml
+
+# Куда сохраняем готовые C#-тесты
+# (Укажите здесь точный путь к вашей папке с тестами, скорее всего это STlab1/Tests)
+output_dir: STlab1/Tests

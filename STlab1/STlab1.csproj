@@ -132,9 +132,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="config.yaml" />
     <None Include="packages.config" />
+    <None Include="spec\csv_parser.yaml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="generator\gen_tests.py" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

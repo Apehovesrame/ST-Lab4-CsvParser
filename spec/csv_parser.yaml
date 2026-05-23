@@ -1,0 +1,32 @@
+module: CsvRowParser
+methods:
+  - name: ParseRow
+    req_functional: ["1"]
+    req_non_functional: ["NFR-1"]
+    signature: "string[] ParseRow(string row)"
+    pre: "row != null"
+    post: "Возвращает массив строк, разделенных запятыми, учитывая кавычки"
+    equivalence_classes:
+      - case: "Простая строка"
+        inputs: ["яблоко,банан,вишня"]
+        expected: "Массив из 3 элементов"
+        
+      - case: "Запятые внутри кавычек"
+        inputs: ['один,"два, три",четыре']
+        expected: "Массив из 3 элементов, кавычки удалены"
+        
+      - case: "Пустые поля"
+        inputs: ["а,,в"]
+        expected: "Массив ['а', '', 'в']"
+        
+      - case: "Null ввод"
+        inputs: [null]
+        expected: "Выброс ArgumentNullException"
+        
+      - case: "Экранированные кавычки"
+        inputs: ['"Она сказала ""Привет"""']
+        expected: "Текст внутри сохраняет одинарные кавычки"
+        
+      - case: "Незакрытая кавычка"
+        inputs: ['а,"б']
+        expected: "Выброс FormatException"

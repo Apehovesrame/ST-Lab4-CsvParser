@@ -5,7 +5,7 @@ on:
     branches: [ "main", "ai-version-1", "ai-version-2", "ai-version-3" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch: # ������ ������
+  workflow_dispatch:
 
 jobs:
   build-and-test:
@@ -15,16 +15,38 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    # 1. Настраиваем Python
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    # 2. Устанавливаем библиотеку pyyaml для работы с конфигурацией и спецификацией
+    - name: Install dependencies
+      run: pip install pyyaml
+
+    # 3. Запускаем генератор (он создаст файл тестов в папке STlab1/Tests)
+    - name: Generate NUnit tests
+      run: python generator/gen_tests.py --config config.yaml
+
+    # 4. Настраиваем среду .NET
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 9.0.305
 
-    - name: Restore dependencies
-      run: dotnet restore
+    # 5. Настраиваем классический NuGet для старого формата проектов
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
 
+    # 6. Восстанавливаем пакеты (включая NUnit) через правильный менеджер
+    - name: Restore dependencies
+      run: nuget restore STlab1.sln
+
+    # 7. Компилируем проект вместе со сгенерированным файлом тестов
     - name: Build
       run: dotnet build --no-restore
 
+    # 8. Запускаем тестирование
     - name: Test
-      run: dotnet test --no-build --verbosity normal --logger "console; verbosity=detailed"
+      run: dotnet test --no-build --verbosity normal --logger "console;verbosity=detailed"
