@@ -27,6 +27,8 @@ jobs:
 
     # 3. Запускаем генератор (он создаст файл тестов в папке STlab1/Tests)
     - name: Generate NUnit tests
+      env:
+        PYTHONIOENCODING: utf-8
       run: python generator/gen_tests.py --config config.yaml
 
     # 4. Настраиваем среду .NET
